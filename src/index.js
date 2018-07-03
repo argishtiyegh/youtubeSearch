@@ -3,6 +3,28 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import { createStore, combineReducers, applyMiddleware} from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { Provider } from 'react-redux';
+import thunk from "redux-thunk";
+import { videoSearchReducer } from './reducers/videoReducer'
+import { loadingState } from './reducers/loadingState'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+let allReducers = {
+    videoSearchReducer,
+    loadingState
+};
+
+const middleWares = [thunk];
+
+const reducers = combineReducers(allReducers);
+let store = createStore(reducers, composeWithDevTools(applyMiddleware(...middleWares)));
+console.log(store.getState());
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('youtubeApp')
+);
 registerServiceWorker();
