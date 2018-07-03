@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchVideos } from '../actions/actions';
+import { SearchVideos, ResetSearchResult } from '../actions/actions';
 import { connect } from 'react-redux';
 
 class SearchBar extends Component {
@@ -16,7 +16,9 @@ class SearchBar extends Component {
             if (this.searchVideos) {
                 clearTimeout(this.searchVideos)
             }
-            this.searchVideos = setTimeout(() => this.props.dispatch(SearchVideos("searchResult", this.state.searchKey)), 400);
+            this.searchVideos = setTimeout(() => this.state.searchKey !== ""
+                ? this.props.dispatch(SearchVideos("searchResult", this.state.searchKey))
+                : this.props.dispatch(ResetSearchResult()), 400)
 
         }
     }

@@ -1,23 +1,23 @@
-import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED} from './actionsTypes';
+import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED, RESET_SEARCH_RESULTS} from './actionsTypes';
 import YTSearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyBYUwCD-95LqkJq6bcvMFbVJxr5TC6QH4U';
 
-const LoadingStart = (key) => {
+export const LoadingStart = (key) => {
     return {
         type: LOADING_START,
         key
     }
 };
 
-const LoadingSuccess = (key) => {
+export const LoadingSuccess = (key) => {
     return {
         type: LOADING_SUCCESS,
         key
     }
 };
 
-const LoadingFailed = (key) => {
+export const LoadingFailed = (key) => {
     return {
         type: LOADING_FAILED,
         key
@@ -25,12 +25,19 @@ const LoadingFailed = (key) => {
 };
 
 
-const SaveSearchResults = (payload) => {
+export const SaveSearchResults = (payload) => {
     return {
         type: SAVE_SEARCH_RESULTS,
         payload
     }
 };
+
+export const ResetSearchResult = () => {
+    return {
+        type: RESET_SEARCH_RESULTS,
+    }
+};
+
 
 
 let collectFromResponse = (videos) => {
