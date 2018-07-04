@@ -9,14 +9,17 @@ class SearchBar extends Component {
     }
     handleVideoSearch () {
         return (e) => {
-            this.props.dispatch(StoreSearchKey(e.target.value.trim()));
+            let inputValue = e.target.value.trim();
             if (this.searchVideos) {
                 clearTimeout(this.searchVideos)
             }
+            if (this.storeKey) {
+                clearTimeout(this.storeKey)
+            }
+            this.storeKey = setTimeout(() => this.props.dispatch(StoreSearchKey(inputValue)));
             this.searchVideos = setTimeout(() => this.props.searchKey !== ""
                 ? this.props.dispatch(SearchVideos("searchResult", this.props.searchKey))
                 : this.props.dispatch(ResetSearchResult()), 400)
-
         }
     }
 
