@@ -1,18 +1,8 @@
 import React, { Component, PureComponent } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 import PropTypes from 'prop-types';
+import SingleItem from './singleItem';
 
-class SingleItem extends PureComponent {
-    render () {
-        let {title, imageSrc, publishedDate, viewMode } = this.props;
-        return <div className={`single-video-item ${viewMode}`}>
-            <h3 className="title">{`Title: ${title}`}</h3>
-            <span>{`Published Date: ${moment(publishedDate).format("DD-MM-YYYY")}`}</span>
-            <img src={imageSrc.url} alt={imageSrc.url} />
-        </div>
-    }
-}
 
 class ItemsWrapper extends Component {
     render () {
@@ -20,13 +10,13 @@ class ItemsWrapper extends Component {
 
         if (loadingState && loadingState.loaded && Object.keys(videoData).length) {
             return <div className="item-wrapper">
-                {Object.keys(this.props.videoData).map((val, key) =>
-                        <SingleItem videoId = {val}
-                                    key = {val}
+                {Object.keys(this.props.videoData).map((videoId) =>
+                        <SingleItem videoId = {videoId}
+                                    key = {videoId}
                                     viewMode = {viewMode}
-                                    title = {videoData[val].title}
-                                    publishedDate = {videoData[val].publishedAt}
-                                    imageSrc = {videoData[val].image}
+                                    title = {videoData[videoId].title}
+                                    publishedDate = {videoData[videoId].publishedAt}
+                                    imageSrc = {videoData[videoId].image}
                         />
             )}</div>
         } else if (loadingState && loadingState.loading) {

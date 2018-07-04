@@ -1,5 +1,15 @@
-import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED, RESET_SEARCH_RESULTS, STORE_SEARCH_KEY, STORE_VIEW_MODE} from './actionsTypes';
 import YTSearch from 'youtube-api-search';
+import {
+    SAVE_SEARCH_RESULTS,
+    LOADING_START,
+    LOADING_SUCCESS,
+    LOADING_FAILED,
+    RESET_SEARCH_RESULTS,
+    STORE_SEARCH_KEY,
+    STORE_VIEW_MODE,
+    OPEN_MODAL,
+    CLOSE_MODAL
+} from './actionsTypes';
 
 const API_KEY = 'AIzaSyBYUwCD-95LqkJq6bcvMFbVJxr5TC6QH4U';
 
@@ -52,6 +62,18 @@ export const ChangeViewMode = (payload) => {
     }
 };
 
+export const OpenModal = (payload) => {
+    return {
+        type: OPEN_MODAL,
+        payload
+    }
+};
+
+export const CloseModal = () => {
+    return {
+        type: CLOSE_MODAL
+    }
+};
 
 let collectFromResponse = (videos) => {
     return videos.reduce((col, cur) => {

@@ -11,7 +11,7 @@ import { videoSearchReducer } from './reducers/videoReducer'
 import { loadingState } from './reducers/loadingState'
 
 
-let allReducers = {
+const allReducers = {
     videoSearchReducer,
     loadingState
 };
@@ -19,7 +19,7 @@ let allReducers = {
 const middleWares = [thunk];
 
 const reducers = combineReducers(allReducers);
-let store = createStore(reducers, composeWithDevTools(applyMiddleware(...middleWares)));
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(...middleWares)));
 ReactDOM.render(
     <Provider store={store}>
         <App />
