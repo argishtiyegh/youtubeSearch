@@ -9,27 +9,38 @@ class SingleItem extends PureComponent {
     }
 }
 
-
 class ItemsWrapper extends Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
     }
     render () {
-        console.log(this.props);
-        return this.props.loadingState ? Object.keys(this.props.videoData).map((val, key) =>
-            <SingleItem data = {val} key = {val} />
-        ) : null
+        let { videoData, loadingState, searchKey} = this.props;
+        if (loadingState && loadingState.loaded && Object.keys(videoData).length) {
+            return Object.keys(this.props.videoData).map((val, key) =>
+                <SingleItem data = {val} key = {val} />
+            );
+        } else if (loadingState && loadingState.loading) {
+            return <p>{"Loading..."}</p>;
+        } else if (searchKey !== "" && loadingState && loadingState.loaded && videoData && !Object.keys(videoData).length) {
+            return <p>{"No results"}</p>
+        }
+        else {
+            return <p>{"Results"}</p>;
+        }
     }
 }
 const mapStateToProps = (state) => {
     return {
         videoData: state.videoSearchReducer && state.videoSearchReducer.searchResult,
-        loadingState: state.loadingState && state.loadingState.searchResult && state.loadingState.searchResult.loaded
+        loadingState: state.loadingState && state.loadingState.searchResult && state.loadingState.searchResult,
+        searchKey: state.videoSearchReducer.searchKey,
     }
+};
+ItemsWrapper.propTypes = {
+    videoData: PropTypes.object,
+    loadingState: PropTypes.object,
+    searchKey: PropTypes.string
 };
 export default connect (mapStateToProps) (ItemsWrapper);
 
-ItemsWrapper.propTypes = {
-    videoData: PropTypes.object
-};
 

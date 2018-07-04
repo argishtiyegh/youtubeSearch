@@ -1,6 +1,6 @@
-import {SAVE_SEARCH_RESULTS, RESET_SEARCH_RESULTS} from "../actions/actionsTypes";
+import {SAVE_SEARCH_RESULTS, RESET_SEARCH_RESULTS, STORE_SEARCH_KEY} from "../actions/actionsTypes";
 
-export const videoSearchReducer = (state = {}, action)  => {
+export const videoSearchReducer = (state = {searchKey: ""}, action)  => {
     switch (action.type) {
         case SAVE_SEARCH_RESULTS:
             return {
@@ -12,6 +12,12 @@ export const videoSearchReducer = (state = {}, action)  => {
                 ...state,
                 searchResult: {}
             };
+        case STORE_SEARCH_KEY:
+            return {
+                ...state,
+                searchKey: action.key
+            }
+
     }
     return state;
 };

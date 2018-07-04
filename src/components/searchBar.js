@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import { SearchVideos, ResetSearchResult } from '../actions/actions';
+import { SearchVideos, ResetSearchResult, StoreSearchKey } from '../actions/actions';
 import { connect } from 'react-redux';
 
 class SearchBar extends Component {
     constructor (props) {
         super(props);
         this.handleVideoSearch = this.handleVideoSearch.bind(this);
-        this.state = {
-            searchKey: ""
-        }
     }
     handleVideoSearch () {
         return (e) => {
-            this.setState({searchKey: e.target.value.trim()});
+            this.props.dispatch(StoreSearchKey(e.target.value.trim()));
             if (this.searchVideos) {
                 clearTimeout(this.searchVideos)
             }
-            this.searchVideos = setTimeout(() => this.state.searchKey !== ""
-                ? this.props.dispatch(SearchVideos("searchResult", this.state.searchKey))
+            this.searchVideos = setTimeout(() => this.props.searchKey !== ""
+                ? this.props.dispatch(SearchVideos("searchResult", this.props.searchKey))
                 : this.props.dispatch(ResetSearchResult()), 400)
 
         }
@@ -31,4 +28,10 @@ class SearchBar extends Component {
             )
     }
 }
-export default connect()(SearchBar);
+const mapStateToProps = (state) => {
+    return {
+        searchKey: state.videoSearchReducer.searchKey,
+
+}
+};
+export default connect(mapStateToProps)(SearchBar);

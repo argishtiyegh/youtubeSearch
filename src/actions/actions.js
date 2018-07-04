@@ -1,4 +1,4 @@
-import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED, RESET_SEARCH_RESULTS} from './actionsTypes';
+import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED, RESET_SEARCH_RESULTS, STORE_SEARCH_KEY} from './actionsTypes';
 import YTSearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyBYUwCD-95LqkJq6bcvMFbVJxr5TC6QH4U';
@@ -35,6 +35,13 @@ export const SaveSearchResults = (payload) => {
 export const ResetSearchResult = () => {
     return {
         type: RESET_SEARCH_RESULTS,
+    }
+};
+
+export const StoreSearchKey = (key) => {
+    return {
+        type: STORE_SEARCH_KEY,
+        key
     }
 };
 
