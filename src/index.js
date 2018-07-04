@@ -20,7 +20,6 @@ const middleWares = [thunk];
 
 const reducers = combineReducers(allReducers);
 let store = createStore(reducers, composeWithDevTools(applyMiddleware(...middleWares)));
-console.log(store.getState());
 ReactDOM.render(
     <Provider store={store}>
         <App />

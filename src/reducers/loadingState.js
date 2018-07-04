@@ -19,6 +19,8 @@ const setLoadingState = (loadingState = {}) => {
             obj.loaded = false;
             obj.failed = true;
             return obj;
+        default:
+            return obj;
     }
 };
 
@@ -39,8 +41,6 @@ export const loadingState = (state = {}, action)  => {
                 ...state,
                 [action.key]: setLoadingState("loadingFailed")
             };
-
-
         default:
             return state;
     }

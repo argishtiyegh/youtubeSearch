@@ -1,4 +1,4 @@
-import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED, RESET_SEARCH_RESULTS, STORE_SEARCH_KEY} from './actionsTypes';
+import {SAVE_SEARCH_RESULTS, LOADING_START, LOADING_SUCCESS, LOADING_FAILED, RESET_SEARCH_RESULTS, STORE_SEARCH_KEY, STORE_VIEW_MODE} from './actionsTypes';
 import YTSearch from 'youtube-api-search';
 
 const API_KEY = 'AIzaSyBYUwCD-95LqkJq6bcvMFbVJxr5TC6QH4U';
@@ -45,6 +45,12 @@ export const StoreSearchKey = (key) => {
     }
 };
 
+export const ChangeViewMode = (payload) => {
+    return {
+        type: STORE_VIEW_MODE,
+        payload
+    }
+};
 
 
 let collectFromResponse = (videos) => {
