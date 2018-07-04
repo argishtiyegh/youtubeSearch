@@ -3,3 +3,24 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+.input-parent {
+  margin-top: 10px;
+}
+.input-parent > input {
+  padding: 10px 5px;
+  width: 40%;
+  box-sizing: border-box;
+  border: 1px solid #aaaaaa;
+  border-radius: 3px;
+  outline: none;
+}
+.single-video-item {
+  margin-top: 20px;
+}
+.single-video-item h3 {
+  margin: 10px 0 5px;
+}
+.single-video-item > span {
+  display: block;
+  text-align: center;
+}

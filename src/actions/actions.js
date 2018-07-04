@@ -52,6 +52,7 @@ let collectFromResponse = (videos) => {
         col[cur.id.videoId] = {
             "id" : cur.id.videoId,
             "title" : cur.snippet.title,
+            "publishedAt" : cur.snippet.publishedAt,
             "image" : cur.snippet.thumbnails.default
         };
         return col;
