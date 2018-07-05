@@ -22,8 +22,7 @@ class Modal extends Component {
         let videoSrc = `https://www.youtube.com/embed/${videoId}?autoplay=${autoplay}&rel=${rel}&modestbranding=${modest}`;
         return (<div className="embedVideo">
             <iframe className="iframeVideo" width="100%" height="500px"
-                    src={videoSrc}/>
-            <button onClick={this.closeModal()}>{"Close"}</button>
+                    src={videoSrc} allowFullScreen/>
         </div>);
     }
 }
@@ -31,13 +30,20 @@ class Modal extends Component {
 const EnhancedModal = connect()(Modal);
 
 class SingleItem extends PureComponent {
+    constructor(props) {
+        super(props);
+        this.openModal = this.openModal.bind(this);
+    }
+    openModal (videoId) {
+        return () => this.props.dispatch(OpenModal(videoId))
+    }
     render () {
         let {title, imageSrc, publishedDate, viewMode, videoId } = this.props;
         return <div className={`single-video-item ${viewMode}`}>
             <h3 className="title">{`Title: ${title}`}</h3>
             <span>{`Published Date: ${moment(publishedDate).format("DD-MM-YYYY")}`}</span>
-            <img src={imageSrc.url} alt={imageSrc.url} onClick={() => this.props.dispatch(OpenModal(videoId))}/>
-            {this.props.modal === videoId ? <EnhancedModal videoId = {videoId} autoplay="0" rel="0" modest="1"/> : null}
+            <img src={imageSrc.url} alt={imageSrc.url} onClick={this.openModal(videoId)}/>
+            {this.props.modal === videoId ? <EnhancedModal videoId = {videoId} autoplay="0" rel="0" modest="1" allowfullscreen/> : null}
         </div>;
     }
 }

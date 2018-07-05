@@ -81,7 +81,7 @@ let collectFromResponse = (videos) => {
             "id" : cur.id.videoId,
             "title" : cur.snippet.title,
             "publishedAt" : cur.snippet.publishedAt,
-            "image" : cur.snippet.thumbnails.default
+            "image" : cur.snippet.thumbnails.medium
         };
         return col;
     }, {})
@@ -93,7 +93,7 @@ export const SearchVideos = (key, searchTerm) => {
         YTSearch({key: API_KEY, term: searchTerm}, (videos) => {
             if (videos) {
                 dispatch(SaveSearchResults(collectFromResponse(videos)));
-                dispatch(LoadingSuccess(key))
+                dispatch(LoadingSuccess(key));
             } else {
                 dispatch(LoadingFailed(key))
             }

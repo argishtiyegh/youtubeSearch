@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { SearchVideos, ResetSearchResult, StoreSearchKey } from '../actions/actions';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 
 class SearchBar extends Component {
     constructor (props) {
@@ -13,11 +14,15 @@ class SearchBar extends Component {
             if (this.searchVideos) {
                 clearTimeout(this.searchVideos)
             }
-            if (this.storeKey) {
-                clearTimeout(this.storeKey)
+            if (this.storeKeyTimer) {
+                clearTimeout(this.storeKeyTimer)
             }
-            this.storeKey = setTimeout(() => this.props.dispatch(StoreSearchKey(inputValue)), 300);
-            this.searchVideos = setTimeout(() => this.props.searchKey !== ""
+
+            //prevent make a request if actual value for an input field does not changed
+            this.storeKeyTimer = inputValue !== this.props.searchKey && setTimeout(() => this.props.dispatch(StoreSearchKey(inputValue)), 300);
+
+            // make a request and after cleaning the search field, clear result's view
+            this.searchVideos = inputValue !== this.props.searchKey && setTimeout(() => this.props.searchKey !== ""
                 ? this.props.dispatch(SearchVideos("searchResult", this.props.searchKey))
                 : this.props.dispatch(ResetSearchResult()), 400)
         }
@@ -30,10 +35,12 @@ class SearchBar extends Component {
             )
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        searchKey: state.videoSearchReducer.searchKey,
-
-}
+const mapStateToProps = () => {
+    return createSelector(
+        [
+            state => state.videoSearchReducer.searchKey
+        ],
+        (searchKey) => ({searchKey})
+    )
 };
 export default connect(mapStateToProps)(SearchBar);
