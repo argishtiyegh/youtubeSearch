@@ -1,4 +1,4 @@
-import React, {Component, PureComponent} from 'react';
+import React, { Component } from 'react';
 import moment from "moment/moment";
 import { connect } from "react-redux";
 import {CloseModal, OpenModal} from "../actions/actions";
@@ -29,7 +29,7 @@ class Modal extends Component {
 
 const EnhancedModal = connect()(Modal);
 
-class SingleItem extends PureComponent {
+class SingleItem extends Component {
     constructor(props) {
         super(props);
         this.openModal = this.openModal.bind(this);

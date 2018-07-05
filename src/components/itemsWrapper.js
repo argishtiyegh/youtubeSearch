@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import SingleItem from './singleItem';
@@ -11,7 +11,7 @@ class ItemsWrapper extends Component {
     }
     componentWillReceiveProps (nextProps) {
         let { loadingState, videoData } = this.props;
-        if (loadingState && loadingState.loading && nextProps.loadingState && nextProps.loadingState.loaded && !!videoData.length && !Object.keys(videoData).length) {
+        if (loadingState && loadingState.loading && nextProps.loadingState && nextProps.loadingState.loaded && videoData && !Object.keys(videoData).length) {
             this.setState({noResults: true})
         } else {
             this.setState({noResults: false})
@@ -34,9 +34,8 @@ class ItemsWrapper extends Component {
             )}</div>
         } else if (loadingState && loadingState.loading) {
             return <p>{"Loading..."}</p>;
-        } else {
-            return <p>{"Results"}</p>;
         }
+        return null
     }
 }
 const mapStateToProps = (state) => {
@@ -50,7 +49,8 @@ const mapStateToProps = (state) => {
 ItemsWrapper.propTypes = {
     videoData: PropTypes.object,
     loadingState: PropTypes.object,
-    searchKey: PropTypes.string
+    searchKey: PropTypes.string,
+    viewMode: PropTypes.string
 };
 export default connect (mapStateToProps) (ItemsWrapper);
 
